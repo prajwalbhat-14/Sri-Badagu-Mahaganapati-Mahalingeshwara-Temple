@@ -1037,7 +1037,8 @@ body {
   }
 
   .hero > div > .eyebrow {
-    display: none;
+    font-size: 0.52rem;
+    letter-spacing: 0.12em;
   }
 
   .hero > div > .eyebrow,
@@ -1059,7 +1060,14 @@ body {
   }
 
   .hero > div > #intro {
-    display: none;
+    display: -webkit-box;
+    overflow: hidden;
+    max-width: 46ch;
+    margin-inline: auto;
+    font-size: 0.7rem;
+    line-height: 1.35;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 
   .landing-feature {
@@ -1068,12 +1076,18 @@ body {
     padding: 0.35rem;
   }
 
-  .landing-feature-title {
-    display: none;
+  .hero .landing-feature-title {
+    display: block;
+    margin: 0 0 0.1rem;
+    font: 0.84rem/1.2 Georgia, "Noto Serif", serif;
   }
 
-  .landing-feature-description {
-    display: none;
+  .hero .landing-feature-description {
+    display: block;
+    max-width: 46ch;
+    margin: 0 auto 0.3rem;
+    font-size: 0.64rem;
+    line-height: 1.3;
   }
 
   .landing-slideshow .temple-gallery-stage {

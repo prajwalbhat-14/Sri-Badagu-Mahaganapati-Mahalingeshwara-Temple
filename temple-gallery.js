@@ -10,14 +10,11 @@ const galleryImages = [
   './assets/god/WhatsApp Image 2026-10-10 at 1.40.13 PMffgtewgt.jpeg',
   './assets/god/WhatsApp Image 2026-10-10 at 1.40.14 PMeetwet.jpeg',
   './assets/god/WhatsApp Image 2026-10-10 at 1.40.15 PMewtwet.jpeg',
-  './assets/god/WhatsApp Image 2026-10-10 at 1.40.15 PMtewtwt.jpeg',
-  './assets/god/WhatsApp Image 2026-10-10 at 1.40.16 PMetewtw.jpeg',
   './assets/god/WhatsApp Image 2026-10-10 at 1.40.17 PMetewtw.jpeg',
   './assets/god/WhatsApp Image 2026-10-10 at 1.40.17 PMtewtwet.jpeg',
   './assets/god/WhatsApp Image 2026-10-10 at 1.40.18 PMtewtwet.jpeg',
   './assets/god/WhatsApp Image 2026-10-10 at 1.40.18 PMtewtwetttt.jpeg',
   './assets/god/WhatsApp Image 2026-10-10 at 1.40.19 PMtewtewte.jpeg',
-  './assets/god/WhatsApp Image 2026-10-10 at 1.40.19 PMtewtwet.jpeg',
   './assets/god/WhatsApp Image 2026-10-10 at 1.40.20 PMtewtewt.jpeg',
   './assets/god/WhatsApp Image 2026-10-10 at 1.40.22 PMtewtwet.jpeg',
   './assets/god/WhatsApp Image 2026-10-10 at 1.40.23 PMtewtewt.jpeg',
@@ -74,12 +71,8 @@ const galleryImages = [
   './assets/shivaratri/WhatsApp Image 2026-10-10 at 1.40.17 PMgasga.jpeg',
   './assets/shivaratri/WhatsApp Image 2026-10-10 at 1.40.18 PMgasga.jpeg',
   './assets/shivaratri/WhatsApp Image 2026-10-10 at 1.40.19 PMgaga.jpeg',
-  './assets/shivaratri/WhatsApp Image 2026-10-10 at 1.40.19 PMgasga.jpeg',
   './assets/shivaratri/WhatsApp Image 2026-10-10 at 1.40.20 PMgasga.jpeg',
   './assets/shivaratri/WhatsApp Image 2026-10-10 at 1.40.21 PMgasga.jpeg',
-  './assets/shivaratri/WhatsApp Image 2026-10-10 at 12.38.27 PM.jpeg',
-  './assets/shivaratri/WhatsApp Image 2026-10-10 at 12.38.28 PMgasg.jpeg',
-  './assets/shivaratri/WhatsApp Image 2026-10-10 at 12.38.28 PMgasga.jpeg',
   './assets/shivaratri/WhatsApp Image 2026-10-10 at 12.38.28 PMgsagasg.jpeg',
   './assets/temple/10.jpeg',
   './assets/temple/11.jpeg',
@@ -112,14 +105,6 @@ const galleryImages = [
   './assets/visitors/WhatsApp Image 2026-10-10 at 4.18.54 PMgdsgsg.jpeg',
   './assets/visitors/WhatsApp Image 2026-10-10 at 4.18.54 PMggdsgsg.jpeg',
   './assets/WhatsApp Image 2026-10-10 at 1.40.14 PM.jpeg',
-  './assets/WhatsApp Image 2026-10-10 at 4.19.34 PMfsafafaf.jpeg',
-  './assets/WhatsApp Image 2026-10-10 at 4.19.36 PMffafsaf.jpeg',
-  './assets/WhatsApp Image 2026-10-10 at 4.19.36 PMfsfafa.jpeg',
-  './assets/WhatsApp Image 2026-10-10 at 4.19.36 PMfsfafafafaf.jpeg',
-  './assets/WhatsApp Image 2026-10-10 at 4.19.36 PMfsfafafafff.jpeg',
-  './assets/WhatsApp Image 2026-10-10 at 4.19.37 PMffsfsfsf.jpeg',
-  './assets/WhatsApp Image 2026-10-10 at 4.19.37 PMfsafaf.jpeg',
-  './assets/WhatsApp Image 2026-10-10 at 4.19.37 PMfsafaffsfsff.jpeg',
   './assets/god/WhatsApp Image 2026-10-10 at 4.19.33 PMfafaf.jpeg',
   './assets/god/WhatsApp Image 2026-10-10 at 4.19.33 PMfsafaffsfaf.jpeg',
   './assets/god/WhatsApp Image 2026-10-10 at 4.19.34 PMfsfafsaf.jpeg',
@@ -395,27 +380,47 @@ const createSlideshow = (images, { title, description, className, showCaption = 
     updateCopy();
   };
 
-  let suppressTouchClick = false;
-  let suppressTouchClickTimer;
+  let suppressTouchClickUntil = 0;
+  let pointerFeedbackTimer;
   const advanceSlide = () => {
     updateSlide(1);
     syncPlayback();
   };
 
+  stage.addEventListener('pointerdown', event => {
+    if (event.pointerType === 'mouse') {
+      suppressTouchClickUntil = 0;
+      return;
+    }
+    if (event.pointerType !== 'touch') return;
+    event.preventDefault();
+    stage.blur();
+    stage.classList.add('is-pointer-interacting');
+    window.clearTimeout(pointerFeedbackTimer);
+  });
   stage.addEventListener('pointerup', event => {
     if (event.pointerType !== 'touch') return;
     event.preventDefault();
-    suppressTouchClick = true;
-    window.clearTimeout(suppressTouchClickTimer);
-    suppressTouchClickTimer = window.setTimeout(() => {
-      suppressTouchClick = false;
-    }, 700);
+    suppressTouchClickUntil = Date.now() + 900;
+    pointerFeedbackTimer = window.setTimeout(() => {
+      stage.classList.remove('is-pointer-interacting');
+    }, 900);
     advanceSlide();
   });
+  stage.addEventListener('pointercancel', () => {
+    stage.classList.remove('is-pointer-interacting');
+    window.clearTimeout(pointerFeedbackTimer);
+  });
+  if (!('PointerEvent' in window)) {
+    stage.addEventListener('touchend', event => {
+      event.preventDefault();
+      suppressTouchClickUntil = Date.now() + 900;
+      advanceSlide();
+    }, { passive: false });
+  }
   stage.addEventListener('click', event => {
-    if (suppressTouchClick) {
-      suppressTouchClick = false;
-      window.clearTimeout(suppressTouchClickTimer);
+    if (event.detail > 0 && Date.now() < suppressTouchClickUntil) {
+      event.preventDefault();
       return;
     }
     advanceSlide();

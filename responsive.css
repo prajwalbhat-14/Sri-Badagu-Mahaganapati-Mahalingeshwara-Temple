@@ -375,6 +375,7 @@ iframe {
   cursor: pointer;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
 }
@@ -386,6 +387,19 @@ iframe {
 
 .temple-gallery-stage:focus:not(:focus-visible) {
   outline: none;
+}
+
+.temple-gallery-stage.is-pointer-interacting {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.temple-gallery-stage *,
+.temple-gallery-stage::selection,
+.temple-gallery-stage *::selection {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .temple-gallery-image {
