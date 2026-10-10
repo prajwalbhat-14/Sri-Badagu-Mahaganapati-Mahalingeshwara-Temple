@@ -1,6 +1,6 @@
 # Sri Badagu Mahaganapati & Mahalingeshwara Temple
 
-Responsive temple website for Alangar, Moodbidri, with English, Kannada, and Hindi content, temple timings and seva details, and automatically rotating temple and visitor photo galleries.
+Responsive temple website for Sri Badagu Mahaganapati & Mahalingeshwara Temple Alangar, Moodbidri, with English, Kannada, and Hindi content, temple timings and seva details, and automatically rotating temple and visitor photo galleries.
 
 ## Run locally
 
