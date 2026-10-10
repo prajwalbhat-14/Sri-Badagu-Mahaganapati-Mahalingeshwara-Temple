@@ -303,6 +303,9 @@ const createSlideshow = (images, { title, description, className, showCaption = 
 
   const stage = document.createElement('figure');
   stage.className = 'temple-gallery-stage';
+  stage.tabIndex = 0;
+  stage.setAttribute('role', 'button');
+  stage.setAttribute('aria-roledescription', 'next photo');
   const image = document.createElement('img');
   image.className = 'temple-gallery-image';
   image.alt = '';
@@ -315,7 +318,26 @@ const createSlideshow = (images, { title, description, className, showCaption = 
 
   gallery.append(stage);
 
-  let index = 0;
+  const orderedImages = [...images];
+  for (let current = orderedImages.length - 1; current > 0; current -= 1) {
+    const randomIndex = Math.floor(Math.random() * (current + 1));
+    [orderedImages[current], orderedImages[randomIndex]] = [
+      orderedImages[randomIndex],
+      orderedImages[current],
+    ];
+  }
+
+  const lastImageKey = `temple-gallery-last-${className}`;
+  try {
+    const previousImage = window.localStorage.getItem(lastImageKey);
+    if (orderedImages.length > 1 && orderedImages[0].url === previousImage) {
+      [orderedImages[0], orderedImages[1]] = [orderedImages[1], orderedImages[0]];
+    }
+  } catch (error) {
+    console.warn('Could not read the previous temple gallery image.', error);
+  }
+
+  let index = -1;
   let pagePaused = document.hidden;
   let galleryVisible = !('IntersectionObserver' in window);
   let timer;
@@ -325,24 +347,38 @@ const createSlideshow = (images, { title, description, className, showCaption = 
     categoryCopy[category]?.[document.documentElement.lang] || category;
 
   const updateSlide = (direction = 0) => {
-    index = (index + direction + images.length) % images.length;
-    const current = images[index];
+    index = (index + direction + orderedImages.length) % orderedImages.length;
+    const current = orderedImages[index];
     image.classList.remove('is-changing');
     void image.offsetWidth;
     image.alt = categoryName(current.category);
     if (caption) caption.textContent = categoryName(current.category);
+    stage.setAttribute('aria-label', getCopy().next);
     image.src = current.url;
     image.classList.add('is-changing');
+    try {
+      window.localStorage.setItem(lastImageKey, current.url);
+    } catch (error) {
+      console.warn('Could not save the current temple gallery image.', error);
+    }
   };
 
   const updateCopy = () => {
     gallery.setAttribute('aria-label', title());
     gallery.setAttribute('aria-description', description());
-    if (images[index]) {
-      image.alt = categoryName(images[index].category);
+    stage.setAttribute('aria-label', getCopy().next);
+    if (orderedImages[index]) {
+      image.alt = categoryName(orderedImages[index].category);
       if (caption) caption.textContent = image.alt;
     }
   };
+
+  stage.addEventListener('click', () => updateSlide(1));
+  stage.addEventListener('keydown', event => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    updateSlide(1);
+  });
 
   const syncPlayback = () => {
     window.clearInterval(timer);
@@ -365,7 +401,7 @@ const createSlideshow = (images, { title, description, className, showCaption = 
   }
   document.getElementById('language')?.addEventListener('change', updateCopy);
 
-  updateSlide();
+  updateSlide(1);
   syncPlayback();
   return gallery;
 };

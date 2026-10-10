@@ -372,6 +372,12 @@ iframe {
   border: 1px solid #d2aa5f55;
   background:
     radial-gradient(ellipse, #44271e, #16090b 76%);
+  cursor: pointer;
+}
+
+.temple-gallery-stage:focus-visible {
+  outline: 3px solid #f1d68f;
+  outline-offset: 3px;
 }
 
 .temple-gallery-image {
@@ -424,6 +430,35 @@ iframe {
 }
 
 @media (max-width: 650px) {
+  .hero > div {
+    width: min(100%, 30rem);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.7rem;
+  }
+
+  .hero > div > .om,
+  .hero > div > .eyebrow,
+  .hero > div > #title,
+  .hero > div > #subtitle,
+  .hero > div > #intro,
+  .hero > div > #explore,
+  .hero > div > #discover,
+  .hero > div > #visitmap {
+    grid-column: 1;
+  }
+
+  .hero > div > #explore,
+  .hero > div > #discover,
+  .hero > div > #visitmap {
+    width: min(100%, 24rem);
+    justify-self: center;
+  }
+
+  .temple-loader-emblem {
+    width: 7rem;
+    height: 7rem;
+  }
+
   .temple-gallery-stage {
     height: clamp(16rem, 52svh, 34rem);
   }
@@ -617,6 +652,7 @@ iframe {
   margin: 0 auto 1.5rem;
   border: 1px solid #e1bd71;
   border-radius: 50%;
+  overflow: hidden;
   background: radial-gradient(circle, #7b382d, #351019 70%);
   box-shadow: 0 0 0 0.6rem #d3a64f16, 0 0 3rem #e1b65754;
   animation: loader-lamp-glow 2s ease-in-out infinite;
@@ -685,6 +721,65 @@ iframe {
   transform: translateY(-2px);
 }
 
+.hero > div {
+  display: grid;
+  width: min(100%, 58rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  justify-items: stretch;
+  gap: clamp(0.55rem, 1.5vw, 1rem);
+}
+
+.hero > div > .om,
+.hero > div > .eyebrow,
+.hero > div > #title,
+.hero > div > #subtitle,
+.hero > div > #intro {
+  grid-column: 1 / -1;
+}
+
+.hero #subtitle {
+  max-width: 30ch;
+  margin-inline: auto;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.hero > div > #explore,
+.hero > div > #discover,
+.hero > div > #visitmap {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0.8rem clamp(0.55rem, 1.6vw, 1.25rem);
+  text-align: center;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.temple-loader-emblem {
+  width: 8rem;
+  height: 8rem;
+  aspect-ratio: auto;
+  padding: 0;
+  background: #080605;
+}
+
+.temple-loader-om {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  clip-path: circle(50%);
+  background: #080605 url("./assets/temple-logo.png") center / contain no-repeat;
+  font-size: 0;
+  text-shadow: none;
+}
+
 @keyframes loader-mandala-turn {
   to { transform: rotate(360deg); }
 }
@@ -696,6 +791,21 @@ iframe {
 @keyframes loader-light-pass {
   from { transform: translateX(-130%); }
   to { transform: translateX(340%); }
+}
+
+@media (max-width: 650px) {
+  .hero > div {
+    width: min(100%, 30rem);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.7rem;
+  }
+
+  .hero > div > #explore,
+  .hero > div > #discover,
+  .hero > div > #visitmap {
+    width: min(100%, 24rem);
+    justify-self: center;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
