@@ -134,6 +134,8 @@ const languageCopy = {
     timings: 'Temple Timings',
     morning: 'Morning',
     evening: 'Evening',
+    landingGalleryTitle: 'Sacred moments',
+    landingGalleryDescription: 'A glimpse of the temple and its celebrations.',
     galleryLabel: 'SACRED MOMENTS · TEMPLE GALLERY',
     galleryTitle: 'A glimpse into our temple',
     galleryDescription: 'Explore the deities, celebrations, and cherished moments of the temple.',
@@ -156,6 +158,8 @@ const languageCopy = {
     timings: 'ದೇವಸ್ಥಾನದ ಸಮಯ',
     morning: 'ಬೆಳಿಗ್ಗೆ',
     evening: 'ಸಂಜೆ',
+    landingGalleryTitle: 'ಪವಿತ್ರ ಕ್ಷಣಗಳು',
+    landingGalleryDescription: 'ದೇವಸ್ಥಾನ ಮತ್ತು ಉತ್ಸವಗಳ ಒಂದು ನೋಟ.',
     galleryLabel: 'ಪವಿತ್ರ ಕ್ಷಣಗಳು · ದೇವಸ್ಥಾನದ ಚಿತ್ರಗಳು',
     galleryTitle: 'ನಮ್ಮ ದೇವಸ್ಥಾನದ ಒಂದು ನೋಟ',
     galleryDescription: 'ದೇವರು, ಉತ್ಸವಗಳು ಮತ್ತು ದೇವಸ್ಥಾನದ ಸ್ಮರಣೀಯ ಕ್ಷಣಗಳನ್ನು ವೀಕ್ಷಿಸಿ.',
@@ -179,6 +183,8 @@ const languageCopy = {
     timings: 'मंदिर का समय',
     morning: 'सुबह',
     evening: 'शाम',
+    landingGalleryTitle: 'पावन झलकियाँ',
+    landingGalleryDescription: 'मंदिर और उत्सवों की एक झलक।',
     galleryLabel: 'पावन क्षण · मंदिर गैलरी',
     galleryTitle: 'हमारे मंदिर की एक झलक',
     galleryDescription: 'देवताओं, उत्सवों और मंदिर के यादगार पलों को देखें।',
@@ -373,13 +379,6 @@ const createSlideshow = (images, { title, description, className, showCaption = 
     }
   };
 
-  stage.addEventListener('click', () => updateSlide(1));
-  stage.addEventListener('keydown', event => {
-    if (event.key !== 'Enter' && event.key !== ' ') return;
-    event.preventDefault();
-    updateSlide(1);
-  });
-
   const syncPlayback = () => {
     window.clearInterval(timer);
     const shouldPlay = !pagePaused && galleryVisible;
@@ -387,6 +386,18 @@ const createSlideshow = (images, { title, description, className, showCaption = 
     if (shouldPlay) timer = window.setInterval(() => updateSlide(1), 5000);
     updateCopy();
   };
+
+  const advanceSlide = () => {
+    updateSlide(1);
+    syncPlayback();
+  };
+
+  stage.addEventListener('click', advanceSlide);
+  stage.addEventListener('keydown', event => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    advanceSlide();
+  });
 
   document.addEventListener('visibilitychange', () => {
     pagePaused = document.hidden;
@@ -452,6 +463,34 @@ const initializePhotoSlideshows = () => {
     if (slideshow) visitorContainer.append(slideshow);
   }
 
+  const hero = document.querySelector('#home > div');
+  const exploreLink = document.getElementById('explore');
+  const discoverLink = document.getElementById('discover');
+  const directionsLink = document.getElementById('visitmap');
+  if (hero && exploreLink && discoverLink && directionsLink) {
+    const copy = languageCopy[document.documentElement.lang] || languageCopy.en;
+    const landingGallery = document.createElement('div');
+    landingGallery.className = 'landing-feature';
+    landingGallery.append(
+      textElement('h2', 'landing-feature-title', copy.landingGalleryTitle),
+      textElement('p', 'landing-feature-description', copy.landingGalleryDescription),
+    );
+    const slideshow = createSlideshow(mediaImages, {
+      title: () => (languageCopy[document.documentElement.lang] || languageCopy.en).landingGalleryTitle,
+      description: () => (languageCopy[document.documentElement.lang] || languageCopy.en).landingGalleryDescription,
+      className: 'landing-slideshow',
+      showCaption: false,
+    });
+    if (slideshow) landingGallery.append(slideshow);
+    hero.insertBefore(landingGallery, exploreLink);
+
+    const actions = document.createElement('nav');
+    actions.className = 'hero-actions';
+    actions.setAttribute('aria-label', 'Explore the temple');
+    actions.append(exploreLink, discoverLink, directionsLink);
+    hero.append(actions);
+  }
+
   const mediaSection = document.getElementById('media');
   const mediaHeading = mediaSection?.querySelector('.media-heading');
   const mediaDescription = document.getElementById('media-description');
@@ -478,10 +517,14 @@ const initializePhotoSlideshows = () => {
     const visitorDescription = document.querySelector('.visitor-gallery-description');
     const mediaTitle = document.querySelector('.media-photo-title');
     const mediaDescription = document.querySelector('.media-photo-description');
+    const landingTitle = document.querySelector('.landing-feature-title');
+    const landingDescription = document.querySelector('.landing-feature-description');
     if (visitorTitle) visitorTitle.textContent = copy.visitorPhotosTitle;
     if (visitorDescription) visitorDescription.textContent = copy.visitorPhotosDescription;
     if (mediaTitle) mediaTitle.textContent = copy.mediaPhotosTitle;
     if (mediaDescription) mediaDescription.textContent = copy.mediaPhotosDescription;
+    if (landingTitle) landingTitle.textContent = copy.landingGalleryTitle;
+    if (landingDescription) landingDescription.textContent = copy.landingGalleryDescription;
   });
 };
 
