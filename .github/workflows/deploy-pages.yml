@@ -33,7 +33,7 @@ jobs:
       - name: Prepare static website
         run: |
           mkdir _site
-          cp index.html responsive.css temple-gallery.js temple-interactions.js temple-media.js temple-theme.css tradition-copy.js _site/
+          cp index.html robots.txt sitemap.xml responsive.css temple-gallery.js temple-interactions.js temple-media.js temple-theme.css tradition-copy.js _site/
           cp -R assets _site/assets
 
       - name: Upload website artifact

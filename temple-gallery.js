@@ -258,7 +258,7 @@ const updateSevaDetails = () => {
       { name: 'Panchakajjaya', charge: '₹20' },
       { name: 'Apada Pooje', charge: '₹100', note: copy.apadaNote },
       { name: 'Hoovina Pooje', charge: '₹100' },
-      { name: 'Rangapooje', charge: '₹3,000' },
+      { name: 'Rangapooje', charge: '₹5,000' },
     ]),
   );
   document.getElementById('stext').textContent = copy.sevaDescription;

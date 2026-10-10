@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://prajwalbhat-14.github.io/Sri-Badagu-Mahaganapati-Mahalingeshwara-Temple/sitemap.xml
