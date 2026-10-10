@@ -1,4 +1,4 @@
-# Sri Mahalingeshwara Temple Alangar
+# Sri Badagu Mahaganapati & Mahalingeshwara Temple
 
 Responsive temple website for Alangar, Moodbidri, with English, Kannada, and Hindi content, temple timings and seva details, and automatically rotating temple and visitor photo galleries.
 
@@ -10,7 +10,7 @@ Open `index.html` in a browser. The site is static and does not require a build 
 
 GitHub Actions deploys the site to GitHub Pages whenever changes are pushed to `main`. The workflow publishes the standalone `index.html`, stylesheets, scripts, and `assets/` directory.
 
-Website: <https://prajwalbhat-14.github.io/Sri-Badagu-Mahaganapati-Mahalingeshwara-Temple/>
+Website name: Sri Mahalingeshwara Temple Alangar
 
 ## Project files
 
