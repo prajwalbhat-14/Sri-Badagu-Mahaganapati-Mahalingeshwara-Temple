@@ -521,6 +521,8 @@ const initializePhotoSlideshows = () => {
     actions.setAttribute('aria-label', 'Explore the temple');
     actions.append(exploreLink, discoverLink, directionsLink);
     hero.append(actions);
+    const intro = document.getElementById('intro');
+    if (intro) hero.append(intro);
   }
 
   const mediaSection = document.getElementById('media');

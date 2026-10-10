@@ -776,7 +776,10 @@ body {
 
 @media (max-width: 650px) {
   .top {
-    padding-inline: 2.5rem;
+    padding-inline: 0.35rem;
+    font-size: 0.52rem;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
   }
 
   .nav {
@@ -1091,7 +1094,7 @@ body {
   }
 
   .landing-slideshow .temple-gallery-stage {
-    height: clamp(6rem, 30vw, 7.5rem);
+    height: clamp(12.5rem, 54vw, 16rem);
   }
 
   .hero-actions {
@@ -1116,5 +1119,12 @@ body {
     grid-column: 1 / -1;
     width: min(100%, 14rem);
     justify-self: center;
+  }
+
+  .hero > div > #intro {
+    grid-column: 1;
+    width: min(100%, 46ch);
+    margin: 0.2rem auto 0;
+    text-align: center;
   }
 }
