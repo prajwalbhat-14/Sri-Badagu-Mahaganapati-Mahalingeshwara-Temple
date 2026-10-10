@@ -104,6 +104,21 @@ const galleryImages = [
   './assets/visitors/WhatsApp Image 2026-10-10 at 12.38.34 PMgasga.jpeg',
   './assets/visitors/WhatsApp Image 2026-10-10 at 12.42.09 PMgaga.jpeg',
   './assets/WhatsApp Image 2026-10-10 at 1.40.14 PM.jpeg',
+  './assets/WhatsApp Image 2026-10-10 at 4.19.34 PMfsafafaf.jpeg',
+  './assets/WhatsApp Image 2026-10-10 at 4.19.36 PMffafsaf.jpeg',
+  './assets/WhatsApp Image 2026-10-10 at 4.19.36 PMfsfafa.jpeg',
+  './assets/WhatsApp Image 2026-10-10 at 4.19.36 PMfsfafafafaf.jpeg',
+  './assets/WhatsApp Image 2026-10-10 at 4.19.36 PMfsfafafafff.jpeg',
+  './assets/WhatsApp Image 2026-10-10 at 4.19.37 PMffsfsfsf.jpeg',
+  './assets/WhatsApp Image 2026-10-10 at 4.19.37 PMfsafaf.jpeg',
+  './assets/WhatsApp Image 2026-10-10 at 4.19.37 PMfsafaffsfsff.jpeg',
+  './assets/god/WhatsApp Image 2026-10-10 at 4.19.33 PMfafaf.jpeg',
+  './assets/god/WhatsApp Image 2026-10-10 at 4.19.33 PMfsafaffsfaf.jpeg',
+  './assets/god/WhatsApp Image 2026-10-10 at 4.19.34 PMfsfafsaf.jpeg',
+  './assets/god/WhatsApp Image 2026-10-10 at 4.19.35 PMfsafaf.jpeg',
+  './assets/god/WhatsApp Image 2026-10-10 at 4.19.38 PMfsfafas.jpeg',
+  './assets/god/WhatsApp Image 2026-10-10 at 4.19.53 PMffsaffaafff.jpeg',
+  './assets/Kola/WhatsApp Image 2026-10-10 at 4.19.33 PMfsafaf.jpeg',
 ].map(path => {
     const folder = path.split('/').at(-2);
     return {
