@@ -373,11 +373,19 @@ iframe {
   background:
     radial-gradient(ellipse, #44271e, #16090b 76%);
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .temple-gallery-stage:focus-visible {
   outline: 3px solid #f1d68f;
   outline-offset: 3px;
+}
+
+.temple-gallery-stage:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .temple-gallery-image {
@@ -389,6 +397,8 @@ iframe {
   object-fit: contain;
   object-position: center;
   opacity: 0;
+  pointer-events: none;
+  -webkit-user-drag: none;
 }
 
 .temple-gallery-image.is-changing {

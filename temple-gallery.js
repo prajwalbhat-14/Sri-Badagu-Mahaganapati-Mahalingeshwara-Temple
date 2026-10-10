@@ -395,12 +395,31 @@ const createSlideshow = (images, { title, description, className, showCaption = 
     updateCopy();
   };
 
+  let suppressTouchClick = false;
+  let suppressTouchClickTimer;
   const advanceSlide = () => {
     updateSlide(1);
     syncPlayback();
   };
 
-  stage.addEventListener('click', advanceSlide);
+  stage.addEventListener('pointerup', event => {
+    if (event.pointerType !== 'touch') return;
+    event.preventDefault();
+    suppressTouchClick = true;
+    window.clearTimeout(suppressTouchClickTimer);
+    suppressTouchClickTimer = window.setTimeout(() => {
+      suppressTouchClick = false;
+    }, 700);
+    advanceSlide();
+  });
+  stage.addEventListener('click', event => {
+    if (suppressTouchClick) {
+      suppressTouchClick = false;
+      window.clearTimeout(suppressTouchClickTimer);
+      return;
+    }
+    advanceSlide();
+  });
   stage.addEventListener('keydown', event => {
     if (event.key !== 'Enter' && event.key !== ' ') return;
     event.preventDefault();
