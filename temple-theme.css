@@ -1013,13 +1013,13 @@ body {
 @media (max-width: 650px) {
   .hero {
     min-height: 0;
-    padding: 1.4rem 1.25rem 2rem;
+    padding: 1rem 1rem 1.2rem;
   }
 
   .hero > div {
     width: min(100%, 32rem);
     grid-template-columns: minmax(0, 1fr);
-    gap: 0.3rem;
+    gap: 0.2rem;
   }
 
   .hero > div > .om,
@@ -1048,34 +1048,28 @@ body {
   }
 
   .hero > div > #title {
-    font-size: clamp(0.9rem, 3.4vw, 1.08rem);
-    line-height: 1.38;
+    font-size: clamp(0.78rem, 3vw, 0.95rem);
+    line-height: 1.25;
   }
 
   .hero > div > #subtitle {
     margin-inline: auto;
-    font-size: clamp(1.3rem, 5.6vw, 1.7rem);
-    line-height: 1.18;
+    font-size: clamp(1.15rem, 5vw, 1.45rem);
+    line-height: 1.12;
   }
 
   .hero > div > #intro {
-    display: -webkit-box;
-    overflow: hidden;
-    margin-inline: auto;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    line-height: 1.5;
+    display: none;
   }
 
   .landing-feature {
     grid-row: auto;
-    margin-top: 0.2rem;
-    padding: 0.45rem;
+    margin-top: 0.1rem;
+    padding: 0.35rem;
   }
 
   .landing-feature-title {
-    margin-bottom: 0.2rem;
-    font-size: 1rem;
+    display: none;
   }
 
   .landing-feature-description {
@@ -1083,25 +1077,25 @@ body {
   }
 
   .landing-slideshow .temple-gallery-stage {
-    height: clamp(8rem, 36vw, 10rem);
+    height: clamp(6rem, 30vw, 7.5rem);
   }
 
   .hero-actions {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     justify-items: stretch;
-    gap: 0.55rem;
-    margin-top: 0.25rem;
+    gap: 0.4rem;
+    margin-top: 0.1rem;
   }
 
   .hero-actions > .btn,
   .hero-actions > .landing-location-link {
     width: 100%;
     max-width: none;
-    min-height: 3rem;
+    min-height: 2.5rem;
     margin: 0;
-    padding-inline: 0.55rem;
-    font-size: 0.7rem;
+    padding: 0.5rem 0.4rem;
+    font-size: 0.66rem;
   }
 
   .hero-actions > #visitmap {
